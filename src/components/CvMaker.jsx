@@ -2,45 +2,56 @@ import React, { useState } from 'react';
 import $ from 'jquery';
 import AddDel from './AddDel';
 import PersonalInfo from './PersonalInfo';
+// import Resume from './Resume';
 
-export default function CvMaker() {
+export default function CvMaker(props) {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const [personal, setPersonal] = useState({
-    first: '',
-    last: '',
-    title: '',
-    photo: '',
-    adress: '',
-    phone: '',
-    email: '',
-    description: '',
+    first: ' ',
+    last: ' ',
+    title: ' ',
+    photo: ' ',
+    adress: ' ',
+    phone: ' ',
+    email: ' ',
+    description: ' ',
   });
-  const [education, setEducation] = useState({
-    uni: '',
-    city: '',
-    degree: '',
-    subject: '',
-    from: '',
-    to: '',
-  });
-  const [experience, setExperience] = useState({
-    position: '',
-    company: '',
-    city: '',
-    from: '',
-    to: '',
-  });
+  const [education, setEducation] = useState([
+    {
+      uni: ' ',
+      city: ' ',
+      degree: ' ',
+      subject: ' ',
+      from: ' ',
+      to: ' ',
+    },
+  ]);
+  const [experience, setExperience] = useState([
+    {
+      position: ' ',
+      company: ' ',
+      city: ' ',
+      from: ' ',
+      to: ' ',
+    },
+  ]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPersonal((prevPersonal) => ({ ...prevPersonal, [name]: value }));
-    setEducation((prevEducation) => ({ ...prevEducation, [name]: value }));
-    setExperience((prevExperience) => ({ ...prevExperience, [name]: value }));
+    // setEducation((prevEducation) => ({ ...prevEducation, [name]: value }));
+    // setExperience((prevExperience) => ({ ...prevExperience, [name]: value }));
     console.log(personal);
   };
 
-  const handleSubmit = (e) => {
+  const handleSave = (e) => {
     e.preventDefault();
-    console.log(personal, education, experience);
+    console.log('Personal:', personal);
+    console.log('Education:', education);
+    console.log('Experience:', experience);
+    // Set the formSubmitted state variable to true when the form is submitted
+    setFormSubmitted(true);
   };
   const [showEduSection, setShowEduSection] = useState(true);
   const [showExpSection, setShowExpSection] = useState(true);
@@ -58,7 +69,7 @@ export default function CvMaker() {
       first: 'Smael',
       last: 'Draoui',
       title: 'Front-end master',
-      photo: '',
+      photo: ' ',
       adress: 'IM SALMA AP15 ETAGE 3 AV SAMOUNI',
       phone: '+212 648075134',
       email: 'smaelcv@gmail.com',
@@ -91,11 +102,11 @@ export default function CvMaker() {
             </h1>
           </div>
         </header>
-        <form onSubmit={handleSubmit} className="container mt-2">
+        <form onSubmit={handleSave} className="container mt-2">
           <section className="bg-light border border-light border-2 form-group">
             <h1 id="app">Personal Information</h1>
             <div>
-              <div className="m-2">
+              <section className="m-2">
                 <input
                   className="form-control"
                   type="text"
@@ -104,7 +115,7 @@ export default function CvMaker() {
                   onChange={handleChange}
                   name="first"
                 />
-              </div>
+              </section>
               <div className="m-2">
                 <input
                   className="form-control"
@@ -128,9 +139,10 @@ export default function CvMaker() {
               <div className="m-2">
                 <input
                   className="form-control"
-                  type="file"
+                  type="text"
                   placeholder="photo"
                   value={personal.photo}
+                  onChange={handleChange}
                   name="photo"
                 />
               </div>
@@ -176,18 +188,33 @@ export default function CvMaker() {
               </div>
             </div>
           </section>
-          <AddDel />
+          <AddDel
+            education={education}
+            experience={experience}
+            setEducation={setEducation}
+            setExperience={setExperience}
+          />
+          <button type="submit" className="btn btn-info m-2">
+            Save
+          </button>
         </form>
-        <button className="btn btn-primary m-2" onClick={loadExample}>
-          Load Example
-        </button>
+        <div>
+          <button className="btn btn-primary m-2" onClick={loadExample}>
+            Load Example
+          </button>
+          <button className="btn btn-primary m-2">Choose template</button>
+          <button className="btn btn-primary m-2">Download cv</button>
+        </div>
       </section>
+
       <div className="my-3 bg-light">
-        <PersonalInfo
-          personal={personal}
-          education={education}
-          experience={experience}
-        />
+        {formSubmitted && (
+          <PersonalInfo
+            personal={personal}
+            education={education}
+            experience={experience}
+          />
+        )}
       </div>
     </div>
   );

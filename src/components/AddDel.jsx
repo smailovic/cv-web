@@ -1,73 +1,69 @@
 import React, { useState } from 'react';
 
-function AddDel() {
+function AddDel(props) {
+  const { education, setEducation, experience, setExperience } = props;
+
   const [numEducation, setNumEducation] = useState(1);
   const [numExperience, setNumExperience] = useState(1);
-  const [education, setEducation] = useState([
-    {
-      uni: '',
-      city: '',
-      degree: '',
-      subject: '',
-      from: '',
-      to: '',
-    },
-  ]);
-  const [experience, setExperience] = useState([
-    {
-      position: '',
-      company: '',
-      city: '',
-      from: '',
-      to: '',
-    },
-  ]);
 
   const handleAddEducation = () => {
     setNumEducation(numEducation + 1);
-    setEducation([
+    setEducation({
       ...education,
-      { uni: '', city: '', degree: '', subject: '', from: '', to: '' },
-    ]);
+      [numEducation]: {
+        uni: ' ',
+        city: ' ',
+        degree: ' ',
+        subject: ' ',
+        from: ' ',
+        to: ' ',
+      },
+    });
   };
 
   const handleRemoveEducation = (index) => {
-    const newEducation = [...education];
-    newEducation.splice(index, 1);
+    const newEducation = { ...education };
+    delete newEducation[index];
     setNumEducation(numEducation - 1);
     setEducation(newEducation);
   };
 
   const handleAddExperience = () => {
     setNumExperience(numExperience + 1);
-    setExperience([
+    setExperience({
       ...experience,
-      { position: '', company: '', city: '', from: '', to: '' },
-    ]);
+      [numExperience]: {
+        position: ' ',
+        company: ' ',
+        city: ' ',
+        from: ' ',
+        to: ' ',
+      },
+    });
   };
 
   const handleRemoveExperience = (index) => {
-    const newExperience = [...experience];
-    newExperience.splice(index, 1);
+    const newExperience = { ...experience };
+    delete newExperience[index];
     setNumExperience(numExperience - 1);
     setExperience(newExperience);
   };
 
   const handleEducationChange = (e, index) => {
     const { name, value } = e.target;
-    const newEducation = [...education];
+    const newEducation = { ...education };
     newEducation[index][name] = value;
     setEducation(newEducation);
   };
 
   const handleExperienceChange = (e, index) => {
     const { name, value } = e.target;
-    const newExperience = [...experience];
+    const newExperience = { ...experience };
     newExperience[index][name] = value;
     setExperience(newExperience);
   };
 
-  const educationItems = education.map((edu, index) => (
+  const educationItems = Object.values(education).map((edu, index) => (
     <div className="m-2" key={index}>
       <input
         className="form-control"
@@ -123,46 +119,46 @@ function AddDel() {
     </div>
   ));
 
-  const experienceItems = experience.map((exp, index) => (
-    <div className="m-2 border" key={index}>
+  const experienceItems = Object.values(experience).map((exp, index) => (
+    <div className="m-2" key={index}>
       <input
         className="form-control"
         name="position"
-        placeholder="position"
         value={exp.position}
         onChange={(e) => handleExperienceChange(e, index)}
+        placeholder="position"
       />
       <input
         className="form-control"
         name="company"
-        placeholder="company"
         value={exp.company}
         onChange={(e) => handleExperienceChange(e, index)}
+        placeholder="company"
       />
       <input
         className="form-control"
         name="city"
-        placeholder="city"
         value={exp.city}
-        onChange={(e) => handleExperienceChange(e, idnex)}
+        onChange={(e) => handleExperienceChange(e, index)}
+        placeholder="city"
       />
       <input
         className="form-control"
         name="from"
-        placeholder="from"
         value={exp.from}
         onChange={(e) => handleExperienceChange(e, index)}
+        placeholder="from"
       />
       <input
         className="form-control"
         name="to"
-        placeholder="to"
         value={exp.to}
         onChange={(e) => handleExperienceChange(e, index)}
+        placeholder="to"
       />
       {index > 0 && (
         <button
-          className="btn btn-dark"
+          className="btn my-2 btn-dark"
           type="button"
           onClick={() => handleRemoveExperience(index)}
         >
@@ -174,25 +170,26 @@ function AddDel() {
 
   return (
     <div>
-      <h1>Education</h1>
+      <div className="m-2">
+        <button
+          className="btn btn-dark"
+          type="button"
+          onClick={handleAddEducation}
+        >
+          Add Education
+        </button>
+      </div>
       {educationItems}
-      <button
-        className="btn btn-warning"
-        type="button"
-        onClick={handleAddEducation}
-      >
-        Add Education
-      </button>
-      <hr />
-      <h1>Experience</h1>
+      <div className="m-2">
+        <button
+          className="btn btn-dark"
+          type="button"
+          onClick={handleAddExperience}
+        >
+          Add Experience
+        </button>
+      </div>
       {experienceItems}
-      <button
-        type="button"
-        className="btn btn-warning"
-        onClick={handleAddExperience}
-      >
-        Add Experience
-      </button>
     </div>
   );
 }

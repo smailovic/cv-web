@@ -1,9 +1,11 @@
 import React from 'react';
 import './perso.css';
-import PDFButton from './PDFButton';
 import './AddDel';
 
-const PersonalInfo = ({ personal, education, experience }) => {
+const PersonalInfo = (props) => {
+  const { personal, education, experience } = props;
+  console.log('this is PersonalINfo');
+  console.log(education);
   const content = (
     <div className="personal-info">
       <div className="personal-info__header">
@@ -19,14 +21,17 @@ const PersonalInfo = ({ personal, education, experience }) => {
           </div>
           <div className="personal-info__header-contact">
             <div className="personal-info__header-contact-image ">
-              {personal.image}
+              {personal.photo}
             </div>
             <div className="personal-info__header-contact-details">
               <h2 className="personal-info__header-contact-title">
                 Personal Details
               </h2>
               <p className="personal-info__header-contact-text">
-                {personal.firstName} {personal.lastName}
+                {personal.first} {personal.last}
+              </p>
+              <p className="personal-info__header-contact-text">
+                {personal.title}
               </p>
               <p className="personal-info__header-contact-text">
                 Address: {personal.address}
@@ -46,40 +51,39 @@ const PersonalInfo = ({ personal, education, experience }) => {
           <h2 className="personal-info__experience-title border-bottom text-dark mb-3">
             Experience
           </h2>
-          <p className="personal-info__experience-position">
-            {experience.position}
-          </p>
-          <p className="personal-info__experience-company">
-            {experience.company}
-          </p>
-          <p className="personal-info__experience-city">{experience.city}</p>
-          <p className="personal-info__experience-period">
-            {experience.from} - {experience.to}
-          </p>
+          {Object.values(experience).map((exp, index) => (
+            <div key={index}>
+              <p className="personal-info__experience-position">
+                {exp.position}
+              </p>
+              <p className="personal-info__experience-company">{exp.company}</p>
+              <p className="personal-info__experience-city">{exp.city}</p>
+              <p className="personal-info__experience-period">
+                {exp.from} - {exp.to}
+              </p>
+            </div>
+          ))}
         </div>
         <div className="personal-info__education">
           <h2 className="personal-info__education-title border-bottom text-dark mb-3">
             Education
           </h2>
-          <p className="personal-info__education-university">{education.uni}</p>
-          <p className="personal-info__education-city">{education.city}</p>
-          <p className="personal-info__education-degree">{education.degree}</p>
-          <p className="personal-info__education-subject">
-            {education.subject}
-          </p>
-          <p className="personal-info__education-period">
-            {education.from} - {education.to}
-          </p>
+          {Object.values(education).map((edu, index) => (
+            <div key={index}>
+              <p className="personal-info__education-university">{edu.uni}</p>
+              <p className="personal-info__education-city">{edu.city}</p>
+              <p className="personal-info__education-degree">{edu.degree}</p>
+              <p className="personal-info__education-subject">{edu.subject}</p>
+              <p className="personal-info__education-period">
+                {edu.from} - {edu.to}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
-  return (
-    <>
-      {content}
-      <PDFButton content={content} />
-    </>
-  );
+  return <>{content}</>;
 };
 
 export default PersonalInfo;
