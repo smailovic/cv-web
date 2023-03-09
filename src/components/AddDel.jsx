@@ -65,6 +65,8 @@ function AddDel(props) {
 
   const educationItems = Object.values(education).map((edu, index) => (
     <div className="m-2" key={index}>
+      <h3>Education</h3>
+      <label htmlFor="uni">University</label>
       <input
         className="form-control"
         name="uni"
@@ -72,6 +74,7 @@ function AddDel(props) {
         onChange={(e) => handleEducationChange(e, index)}
         placeholder="university"
       />
+      <label htmlFor="city">City</label>
       <input
         className="form-control"
         name="city"
@@ -79,6 +82,7 @@ function AddDel(props) {
         onChange={(e) => handleEducationChange(e, index)}
         placeholder="city"
       />
+      <label htmlFor="degree">Degree</label>
       <input
         className="form-control"
         name="degree"
@@ -86,6 +90,7 @@ function AddDel(props) {
         placeholder="degree"
         onChange={(e) => handleEducationChange(e, index)}
       />
+      <label htmlFor="subject">Subject</label>
       <input
         className="form-control"
         name="subject"
@@ -93,6 +98,7 @@ function AddDel(props) {
         value={edu.subject}
         onChange={(e) => handleEducationChange(e, index)}
       />
+      <label htmlFor="from">From</label>
       <input
         className="form-control"
         name="from"
@@ -100,6 +106,7 @@ function AddDel(props) {
         placeholder="from"
         onChange={(e) => handleEducationChange(e, index)}
       />
+      <label htmlFor="to">To</label>
       <input
         className="form-control"
         name="to"
@@ -109,7 +116,7 @@ function AddDel(props) {
       />
       {index > 0 && (
         <button
-          className="btn my-2 btn-dark"
+          className="btn my-2 btn-warning"
           type="button"
           onClick={() => handleRemoveEducation(index)}
         >
@@ -121,6 +128,8 @@ function AddDel(props) {
 
   const experienceItems = Object.values(experience).map((exp, index) => (
     <div className="m-2" key={index}>
+      <h3>Experience</h3>
+      <label htmlFor="position">Position</label>
       <input
         className="form-control"
         name="position"
@@ -128,6 +137,7 @@ function AddDel(props) {
         onChange={(e) => handleExperienceChange(e, index)}
         placeholder="position"
       />
+      <label htmlFor="company">Company</label>
       <input
         className="form-control"
         name="company"
@@ -135,6 +145,7 @@ function AddDel(props) {
         onChange={(e) => handleExperienceChange(e, index)}
         placeholder="company"
       />
+      <label htmlFor="city">City</label>
       <input
         className="form-control"
         name="city"
@@ -142,6 +153,7 @@ function AddDel(props) {
         onChange={(e) => handleExperienceChange(e, index)}
         placeholder="city"
       />
+      <label htmlFor="from">From</label>
       <input
         className="form-control"
         name="from"
@@ -149,6 +161,7 @@ function AddDel(props) {
         onChange={(e) => handleExperienceChange(e, index)}
         placeholder="from"
       />
+      <label htmlFor="to">To</label>
       <input
         className="form-control"
         name="to"
@@ -158,7 +171,7 @@ function AddDel(props) {
       />
       {index > 0 && (
         <button
-          className="btn my-2 btn-dark"
+          className="btn my-2 btn-warning"
           type="button"
           onClick={() => handleRemoveExperience(index)}
         >

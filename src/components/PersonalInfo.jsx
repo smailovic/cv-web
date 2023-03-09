@@ -3,26 +3,25 @@ import './perso.css';
 import './AddDel';
 
 const PersonalInfo = (props) => {
-  const { personal, education, experience } = props;
+  const { personal, education, experience, image } = props;
+
   console.log('this is PersonalINfo');
   console.log(education);
   const content = (
     <div className="personal-info">
       <div className="personal-info__header">
-        <div className="personal-info__header-image bg-primary p-5"></div>
+        <div className="personal-info__header-image bg-primary ">
+          {image && <img className="image" src={image} alt="uploaded" />}
+        </div>
         <div className="personal-info__header-details ">
           <div className="personal-info__header-description">
             <h2 className="personal-info__header-description-title border-bottom mb-3">
               Description
             </h2>
-            <p className="personal-info__header-description-text">
-              {personal.description}
-            </p>
+            <p className="personal-info__header-description-text"></p>
           </div>
           <div className="personal-info__header-contact">
-            <div className="personal-info__header-contact-image ">
-              {personal.photo}
-            </div>
+            <div className="personal-info__header-contact-image "></div>
             <div className="personal-info__header-contact-details">
               <h2 className="personal-info__header-contact-title">
                 Personal Details
@@ -69,14 +68,21 @@ const PersonalInfo = (props) => {
             Education
           </h2>
           {Object.values(education).map((edu, index) => (
-            <div key={index}>
-              <p className="personal-info__education-university">{edu.uni}</p>
-              <p className="personal-info__education-city">{edu.city}</p>
-              <p className="personal-info__education-degree">{edu.degree}</p>
-              <p className="personal-info__education-subject">{edu.subject}</p>
-              <p className="personal-info__education-period">
-                {edu.from} - {edu.to}
-              </p>
+            <div key={index} className="education-container container-block">
+              <h2 className="container-block-title">Education</h2>
+              <div className="item">
+                <h4 className="degree">
+                  {' '}
+                  {edu.degree} {edu.subject}
+                </h4>
+                <h5 className="meta">
+                  {edu.uni} {edu.city}
+                </h5>
+                <div className="time">
+                  {' '}
+                  {edu.from} - {edu.to}
+                </div>
+              </div>
             </div>
           ))}
         </div>

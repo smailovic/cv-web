@@ -14,12 +14,15 @@
 }
 
 .personal-info__header-image {
-  width: 200px;
-  height: 200px;
+  max-width: 200px;
+  max-height: 200px;
   border-radius: 50%;
   background: url('https://via.placeholder.com/200x200') no-repeat center center;
   background-size: cover;
-  margin-right: 20px;
+}
+.image {
+  max-width: 200px;
+  max-height: 200px;
 }
 
 .personal-info__header-details {
